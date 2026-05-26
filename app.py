@@ -176,7 +176,7 @@ class InvoiceDesignerApp(ctk.CTk):
 
         title_lbl = ctk.CTkLabel(
             self.banner,
-            text="CATERING FAJAR - INVOICE DESIGNER",
+            text="INVOICE DESIGNER",
             font=ctk.CTkFont(family="Arial", size=20, weight="bold"),
         )
         title_lbl.grid(row=0, column=0, sticky="w", padx=25, pady=20)
@@ -217,7 +217,7 @@ class InvoiceDesignerApp(ctk.CTk):
 
         sec_title_1 = ctk.CTkLabel(
             company_frame,
-            text="YOUR COMPANY PROFILE (CATERING)",
+            text="YOUR COMPANY PROFILE",
             font=ctk.CTkFont(family="Arial", size=11, weight="bold"),
             text_color="#3a7ebf",
         )
@@ -412,7 +412,7 @@ class InvoiceDesignerApp(ctk.CTk):
         self.e_desc = ctk.CTkEntry(
             add_form_frame,
             textvariable=self.item_desc_var,
-            placeholder_text="e.g. Catering Makan Siang",
+            placeholder_text="e.g. Item",
         )
         self.e_desc.grid(row=2, column=0, sticky="ew", padx=(15, 5), pady=(0, 10))
 
@@ -660,11 +660,9 @@ class InvoiceDesignerApp(ctk.CTk):
         }
         if data_manager.save_default_company_info(info):
             self.defaults = info
-            messagebox.showinfo(
-                "Success", "Catering profile saved as default successfully!"
-            )
+            messagebox.showinfo("Success", "profile saved as default successfully!")
         else:
-            messagebox.showerror("Error", "Failed to save catering profile defaults.")
+            messagebox.showerror("Error", "Failed to save profile defaults.")
 
     def trigger_billing_period_auto_calc(self):
         if self.is_updating_ui:

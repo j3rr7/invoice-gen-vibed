@@ -15,4 +15,7 @@ wheels/
 # json
 *.json
 
+# preview
+preview_invoice.html
+
 .company_defaults.json

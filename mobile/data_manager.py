@@ -14,7 +14,7 @@ DEFAULT_COMPANY_INFO = {
 
 
 def load_default_company_info():
-    """Loads the catering company default details. Falls back to pre-defined values."""
+    """Loads the company default details. Falls back to pre-defined values."""
     if os.path.exists(DEFAULT_SETTINGS_FILE):
         try:
             with open(DEFAULT_SETTINGS_FILE, "r", encoding="utf-8") as f:

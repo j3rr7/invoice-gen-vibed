@@ -38,7 +38,7 @@ def build_executable():
         PyInstaller.__main__.run(pyinstaller_args)
 
         # Verify success
-        exe_path = os.path.join("dist", "Catering Fajar Invoice Designer.exe")
+        exe_path = os.path.join("dist", "Invoice Designer.exe")
         if os.path.exists(exe_path):
             print("\n" + "=" * 50)
             print(" BUILD COMPLETED SUCCESSFULLY!")
