@@ -1,0 +1,12 @@
+[project]
+name = "catfaj-invoice"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "customtkinter>=5.2.2",
+    "flet[all]>=0.85.2",
+    "jinja2>=3.1.6",
+    "pyinstaller>=6.20.0",
+]

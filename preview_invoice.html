@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 1.2cm 1.5cm;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #1a1a1a;
+            font-size: 8.5pt;
+            line-height: 1.35;
+            margin: 0;
+            padding: 0;
+        }
+        p { margin: 0; padding: 0; }
+
+        /* ── TOP HEADER ── */
+        .top-bar {
+            width: 100%;
+            border-spacing: 0;
+            margin-bottom: 0;
+        }
+        .invoice-title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1;
+            margin: 0;
+        }
+        .invoice-meta-no  { font-size: 10pt; font-weight: bold; text-align: right; }
+        .invoice-meta-date { font-size: 8.5pt; text-align: right; }
+
+        /* ── HEADER RULE ── */
+        .rule-table {
+            width: 100%;
+            border-spacing: 0;
+            margin-bottom: 8px;
+        }
+        .rule-td {
+            border-top: 2px solid #1a1a1a;
+            font-size: 1pt;
+            line-height: 1pt;
+            padding: 0;
+        }
+
+        /* ── PARTY INFO ROW ── */
+        .party-table {
+            width: 100%;
+            border-spacing: 0;
+            margin-bottom: 0;
+        }
+        .lbl {
+            font-size: 6.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 1px;
+        }
+        .party-name { font-size: 9pt; font-weight: bold; }
+        .party-addr { font-size: 7.5pt; color: #333; }
+
+        /* ── SECTION RULE ── */
+        .thin-rule-table {
+            width: 100%;
+            border-spacing: 0;
+            margin: 7px 0;
+        }
+        .thin-rule-td {
+            border-top: 1px solid #cccccc;
+            font-size: 1pt;
+            line-height: 1pt;
+            padding: 0;
+        }
+
+        /* ── ITEMS TABLE ── */
+        .items-table {
+            width: 100%;
+            border-spacing: 0;
+            margin-bottom: 0;
+        }
+        .th-desc  { text-align: left;   width: 48%; font-weight: bold; font-size: 7.5pt; text-transform: uppercase; background: #f5f5f5; padding: 4px 5px; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+        .th-qty   { text-align: center; width: 8%;  font-weight: bold; font-size: 7.5pt; text-transform: uppercase; background: #f5f5f5; padding: 4px 5px; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+        .th-price { text-align: right;  width: 22%; font-weight: bold; font-size: 7.5pt; text-transform: uppercase; background: #f5f5f5; padding: 4px 5px; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+        .th-amt   { text-align: right;  width: 22%; font-weight: bold; font-size: 7.5pt; text-transform: uppercase; background: #f5f5f5; padding: 4px 5px; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+        .td-desc  { text-align: left;   font-size: 8pt; padding: 3px 5px; border-bottom: 1px solid #ebebeb; white-space: pre-wrap; }
+        .td-qty   { text-align: center; font-size: 8pt; padding: 3px 5px; border-bottom: 1px solid #ebebeb; }
+        .td-price { text-align: right;  font-size: 8pt; padding: 3px 5px; border-bottom: 1px solid #ebebeb; }
+        .td-amt   { text-align: right;  font-size: 8pt; padding: 3px 5px; border-bottom: 1px solid #ebebeb; }
+        .td-last  { border-bottom: 1px solid #1a1a1a; }
+
+        /* ── SUMMARY BLOCK ── */
+        .summary-wrap   { width: 100%; border-spacing: 0; margin-top: 6px; }
+        .notes-cell     { font-size: 7.5pt; color: #444; vertical-align: top; padding-top: 2px; white-space: pre-wrap; }
+        .totals-cell    { width: 230pt; vertical-align: top; }
+        .totals-table   { width: 100%; border-spacing: 0; font-size: 8.5pt; }
+        .tl             { text-align: left;  padding: 2px 5px; }
+        .tv             { text-align: right; padding: 2px 5px; }
+        .tl-dim         { text-align: left;  padding: 2px 5px; color: #555; }
+        .tv-dim         { text-align: right; padding: 2px 5px; color: #555; }
+        .tl-total       { text-align: left;  padding: 5px 5px 2px; font-size: 9.5pt; font-weight: bold; border-top: 1px solid #1a1a1a; }
+        .tv-total       { text-align: right; padding: 5px 5px 2px; font-size: 9.5pt; font-weight: bold; border-top: 1px solid #1a1a1a; }
+
+        /* ── FOOTER ── */
+        .footer-wrap    { width: 100%; border-spacing: 0; margin-top: 12px; }
+        .footer-rule-td { border-top: 1px solid #cccccc; font-size: 1pt; line-height: 1pt; padding: 0; }
+        .footer-table   { width: 100%; border-spacing: 0; margin-top: 4px; }
+        .footer-left    { font-size: 7.5pt; color: #555; font-style: italic; text-align: left; vertical-align: top; }
+        .footer-right   { font-size: 7.5pt; color: #555; text-align: right; vertical-align: top; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <table class="top-bar" width="100%">
+        <tr>
+            <td valign="bottom" style="padding-bottom:6px;">
+                <p class="invoice-title">Invoice</p>
+            </td>
+            <td valign="bottom" style="padding-bottom:6px;">
+                <p class="invoice-meta-no">INV-202605-RMR-001</p>
+                <p class="invoice-meta-date">Date: 26-05-2026</p>
+            </td>
+        </tr>
+    </table>
+    <table class="rule-table" width="100%"><tr><td class="rule-td">&nbsp;</td></tr></table>
+
+    <!-- PARTY + BILLING PERIOD -->
+    <table class="party-table" width="100%">
+        <tr>
+            <!-- FROM -->
+            <td width="33%" valign="top" style="padding-right:14px; padding-bottom:6px;">
+                <p class="lbl">From</p>
+                <p class="party-name">Catering Fajar</p>
+                <p class="party-addr">Jl Jambu VI / E-128, Pondok Candra Indah</p>
+            </td>
+            <!-- BILL TO -->
+            <td width="40%" valign="top" style="padding-left:14px; padding-bottom:6px; border-left:1px solid #dddddd;">
+                <p class="lbl">Bill To</p>
+                <p class="party-name">PT REJO MULTO REJEKI</p>
+                <p class="party-addr"></p>
+            </td>
+            <!-- BILLING PERIOD -->
+            <td width="27%" valign="top" align="right" style="padding-left:10px; padding-bottom:6px;">
+                <p class="lbl" style="text-align:right;">Billing Period</p>
+                <p style="font-size:8.5pt; font-weight:bold; text-align:right;">Mei 2026</p>
+            </td>
+        </tr>
+    </table>
+    <table class="thin-rule-table" width="100%"><tr><td class="thin-rule-td">&nbsp;</td></tr></table>
+
+    <!-- LINE ITEMS -->
+    <table class="items-table" width="100%">
+        <thead>
+            <tr>
+                <td class="th-desc">Description</td>
+                <td class="th-qty">Qty</td>
+                <td class="th-price">Unit Price (IDR)</td>
+                <td class="th-amt">Amount (IDR)</td>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 04-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 05-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 06-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 07-05-2026</td>
+                <td class="td-qty  ">11</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">220.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 08-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 19-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 21-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 22-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 25-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc ">Catering Makan Siang — 26-05-2026</td>
+                <td class="td-qty  ">10</td>
+                <td class="td-price ">20.000,00</td>
+                <td class="td-amt  ">200.000,00</td>
+            </tr>
+            
+            <tr>
+                <td class="td-desc td-last">Catering Makan Siang — 29-05-2026</td>
+                <td class="td-qty  td-last">10</td>
+                <td class="td-price td-last">20.000,00</td>
+                <td class="td-amt  td-last">200.000,00</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <!-- TOTALS + NOTES -->
+    <table class="summary-wrap" width="100%">
+        <tr>
+            <td class="notes-cell">
+                
+            </td>
+            <td class="totals-cell">
+                <table class="totals-table" width="100%">
+                    <tr>
+                        <td class="tl">Subtotal</td>
+                        <td class="tv">2.220.000,00</td>
+                    </tr>
+                    <tr>
+                        <td class="tl-dim">Tax (0.5%)</td>
+                        <td class="tv-dim">(11.100,00)</td>
+                    </tr>
+                    <tr>
+                        <td class="tl-total">TOTAL DUE</td>
+                        <td class="tv-total">IDR&nbsp;2.208.900,00</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- FOOTER — appears once, after last item -->
+    <table class="footer-wrap" width="100%"><tr><td class="footer-rule-td">&nbsp;</td></tr></table>
+    <table class="footer-table" width="100%">
+        <tr>
+            <td class="footer-left">Thank you for your continued business.</td>
+            <td class="footer-right">indah.wijaya0147@gmail.com&nbsp;|&nbsp;(+62) 895-3369-48883&nbsp;|&nbsp;https://cateringfajar.com
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
